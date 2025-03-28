@@ -40,9 +40,9 @@
                 <h4 class="card-title">List of Jobs</h4>
                 <button class="btn btn-primary" onclick="window.location.href='{{ route('create_job') }}'">Create a job</button>
               </div>
-                   
 
-                    
+
+
                     </p>
                     <div class="table-responsive">
                       <table class="table table-dark">
@@ -50,20 +50,15 @@
                           <tr>
                             <th> # </th>
                          <th>Job title</th>
-                         <th>category</th>
+                         <th>Category</th>
                          <th>Job region</th>
                          <th>Company name</th>
                          <th>Job type</th>
-                         <th>Vacency</th>
+                         <th>Vacancy</th>
                          <th>Experience</th>
                          <th>Salary</th>
-                         <th>Gender</th>
                          <th>Application deadline</th>
-                         <th>Job description</th>
-                         <th>Responsibilities</th>
-                         <th>Education experience</th>
-                         <th>other benefits</th>
-                         <th>image</th>
+                         <th>Image</th>
                             <th>Update</th>
                             <th>View</th>
                             <th>Delete</th>
@@ -81,12 +76,7 @@
                            <td>{{$job->vacancy}}</td>
                            <td>{{$job->experience}}</td>
                            <td>{{$job->salary}}</td>
-                           <td>{{$job->Gender}}</td>
                            <td>{{$job->application_deadline}}</td>
-                           <td>{{$job->job_description}}</td>
-                           <td>{{$job->responsibilities}}</td>
-                           <td>{{$job->education_experience}}</td>
-                           <td>{{$job->otherbenefits}}</td>
                            <td><img  height="100" width="100" src="jobimage/{{$job->image}}" alt=""></td>
                             <td ><a class="btn btn-primary"  href="{{url('update_job',$job->id)}}" ><i class="bi bi-pencil"></i></a> </td>
                             </td>
@@ -101,9 +91,6 @@
                 </div>
               </div>
         </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
     @include('admin.script')
-    <!-- End custom js for this page -->
   </body>
 </html>

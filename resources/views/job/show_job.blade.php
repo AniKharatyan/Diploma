@@ -53,12 +53,8 @@
         <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-    
                     <h4 class="card-title">View Job: {{$job->job_title}}</h4>
-          
-                   
                     <form >
-                    
                       <div class="form-group">
                         <label for="">Job title</label>
                         <input type="text" class="form-control" name="job_title" value="{{  $job->job_title }}" disabled>
@@ -87,15 +83,7 @@
                         <label for="">vacancy</label>
                         <input type="text" class="form-control" name="vacancy" value="{{  $job->vacancy }}" disabled>
                       </div>
-                      <div class="form-group">
-                        <label for="">Gender</label>
-                        <select class="form-control" name="Gender" value="{{  $job->Gender }}" disabled>
-                          <option>Male</option>
-                          <option>Female</option>
-                          <option>Any</option>
-                        </select>
-                      </div>
-                     
+
                       <div class="form-group">
                         <label for="">salary</label>
                         <input type="number" class="form-control" name="salary" value="{{  $job->salary }}" disabled>
@@ -120,10 +108,7 @@
                       <div class="form-group">
                         <label>File upload</label>
                         <td><img  height="100" width="100" src="jobimage/{{$job->image}}" alt=""></td>
-                        
                       </div>
-                   
-                      
                     </form>
                   </div>
                 </div>
@@ -144,9 +129,6 @@
 <script src="{{ asset('admin/assets/js/misc.js') }}"></script>
 <script src="{{ asset('admin/assets/js/settings.js') }}"></script>
 <script src="{{ asset('admin/assets/js/todolist.js') }}"></script>
-<!-- endinject -->
-<!-- Custom js for this page -->
 <script src="{{ asset('admin/assets/js/dashboard.js') }}"></script>
-    <!-- End custom js for this page -->
   </body>
 </html>

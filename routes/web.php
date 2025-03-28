@@ -1,28 +1,13 @@
 <?php
 
+use App\Http\Controllers\ChatGptController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\JobController;
-
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\CategoryController;
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', function () {
@@ -56,12 +41,9 @@ Route::get('/remove_from_favorites/{id}', [JobController::class, 'removeFromFavo
 Route::post('/save-job/{id}', [JobController::class, 'saveJob'])->name('save_job');
 
 
-
-
 Route::get('/contacts', [ContactController::class, 'contacts'])->name('contacts');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/delete/{id}', [ContactController::class, 'delete'])->name('contact.delete');
-
 
 
 Route::get('/users', [UsersController::class, 'users'])->name('users');
@@ -71,27 +53,20 @@ Route::get('/delete/{id}', [UsersController::class, 'delete'])->name('users.dele
 Route::get('/applications', [JobApplicationController::class, 'applications'])->name('applications');
 Route::post('/apply/{job}', [JobApplicationController::class, 'apply'])->name('apply');
 Route::get('/approved/{id}', [JobApplicationController::class, 'approved']);
-    Route::get('/canceled/{id}', [JobApplicationController::class, 'canceled']);
-    Route::get('view_cv/{userId}', [JobApplicationController::class, 'viewCV'])->name('view_cv');
+Route::get('/canceled/{id}', [JobApplicationController::class, 'canceled']);
+Route::get('view_cv/{userId}', [JobApplicationController::class, 'viewCV'])->name('view_cv');
 
- 
-    Route::get('/category', [CategoryController::class, 'category'])->name('category');
-    Route::get('/create_category', [CategoryController::class, 'create_category'])->name('create_category');
-    Route::post('/store_category', [CategoryController::class, 'store_category'])->name('store_category');
-    Route::get('/delete_category/{id}', [CategoryController::class, 'delete'])->name('delete_category');
-    Route::get('/update_category/{id}', [CategoryController::class, 'update_category'])->name('update_category');
+
+Route::get('/category', [CategoryController::class, 'category'])->name('category');
+Route::get('/create_category', [CategoryController::class, 'create_category'])->name('create_category');
+Route::post('/store_category', [CategoryController::class, 'store_category'])->name('store_category');
+Route::get('/delete_category/{id}', [CategoryController::class, 'delete'])->name('delete_category');
+Route::get('/update_category/{id}', [CategoryController::class, 'update_category'])->name('update_category');
 Route::post('/edit_category/{id}', [CategoryController::class, 'edit_category'])->name('edit_category');
 
 Route::get('/category_single/{name}', [CategoryController::class, 'category_single'])->name('category_single');
 
-
-
-
-
-
-   
-  
-    
+Route::post('/generateCoverLetter', [ChatGptController::class, 'generateCoverLetter']);
 
 
 

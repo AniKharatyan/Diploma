@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../assets/css/animate.min.css">
     <link rel="stylesheet" href="../assets/css/quill.snow.css">
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="../assets/css/style.css">    
+    <link rel="stylesheet" href="../assets/css/style.css">
   </head>
   <body id="top">
 
@@ -28,7 +28,7 @@
       <span class="sr-only">Loading...</span>
     </div>
   </div>
-    
+
 
 <div class="site-wrap">
 
@@ -40,7 +40,7 @@
       </div>
       <div class="site-mobile-menu-body"></div>
     </div> <!-- .site-mobile-menu -->
-    
+
 
     <!-- NAVBAR -->
     <header class="site-navbar mt-3">
@@ -52,14 +52,14 @@
             <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
               <li><a href="{{url('/')}}" class="nav-link active">Home</a></li>
               <li><a href="{{route('about')}}">About</a></li>
-             
-            
+
+
               <li><a href="{{route('contact')}}">Contact</a></li>
               <li class="d-lg-none"><a href="post-job.html"><span class="mr-2">+</span> Post a Job</a></li>
               <li class="d-lg-none"><a href="login.html">Log In</a></li>
             </ul>
           </nav>
-          
+
           <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
           <div class="ml-auto">
 
@@ -74,11 +74,11 @@
                         <a class="dropdown-item" href="{{route('showProfile')}}">Profile</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="{{route('favourites')}}">Favourite</a>
-                         
+
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="{{route('messages')}}">Messages</a>
                           <div class="dropdown-divider"></div>
-                          
+
                           <a class="dropdown-item" href="{{route('upload_cv')}}">Upload cv</a>
                         </div>
                       </div>
@@ -137,8 +137,6 @@
     </div>
 @endif
 
-
-    
     <section class="site-section">
       <div class="container">
         <div class="row align-items-center mb-5">
@@ -155,7 +153,7 @@
               <div>
                 <h2>{{$job->job_title}}</h2>
                 <div>
-                  <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>{{$job->company_name}}</span>
+                  <span id="company_name" class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>{{$job->company_name}}</span>
                   <span class="m-2"><span class="icon-room mr-2"></span>{{$job->job_region}}</span>
                   <span class="m-2"><span class="icon-clock-o mr-2"></span><span class="text-primary">{{$job->job_type}}</span></span>
                 </div>
@@ -168,7 +166,7 @@
           {{session()->get('message')}}
           </div>
           @endif
-    
+
         <div class="row">
           <div class="col-lg-8">
             <div class="mb-5">
@@ -176,16 +174,21 @@
               <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-align-left mr-3"></span>Job Description</h3>
               <p>{{$job->job_description}}</p>
             </div>
-            <div class="mb-5">
-              <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-rocket mr-3"></span>Responsibilities</h3>
-              <ul class="list-unstyled m-0 p-0">
-                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>{{$job->responsibilities}}</span></li>
-        
 
-              </ul>
-            </div>
+              <div class="mb-5">
+                  <h3 class="h5 d-flex align-items-center mb-4 text-primary">
+                      <span class="icon-rocket mr-3"></span>Responsibilities
+                  </h3>
+                  <ul class="list-unstyled m-0 p-0">
+                      <li class="d-flex align-items-start mb-2">
+                          <span class="icon-check_circle mr-2 text-muted"></span>
+                          <span id="job-responsibilities">{{$job->responsibilities}}</span>
+                      </li>
+                  </ul>
+              </div>
 
-            <div class="mb-5">
+
+              <div class="mb-5">
               <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-book mr-3"></span>Education + Experience</h3>
               <ul class="list-unstyled m-0 p-0">
                 <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>{{$job->education_experience}}</span></li>
@@ -197,7 +200,7 @@
               <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-turned_in mr-3"></span>Other Benifits</h3>
               <ul class="list-unstyled m-0 p-0">
                 <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>{{$job->otherbenefits}}</span></li>
-        
+
               </ul>
             </div>
 
@@ -240,163 +243,47 @@
           </div>
 
           <div class="col-lg-4">
-           
+
             <div class="bg-light p-3 border rounded mb-4">
-           
+
               <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Job Summary</h3>
               <ul class="list-unstyled pl-3 mb-0">
-         
-                <li class="mb-2"><strong class="text-black">Vacancy:</strong>{{$job->vacancy}}</li>
-                <li class="mb-2"><strong class="text-black">Employment Status:</strong> {{$job->job_type}}</li>
-                <li class="mb-2"><strong class="text-black">Experience:</strong>{{$job->experience}}  </li>
-                <li class="mb-2"><strong class="text-black">Job Location:</strong>{{$job->job_region}} </li>
-                <li class="mb-2"><strong class="text-black">Salary:</strong> {{$job->salary}} da/day</li>
-                <li class="mb-2"><strong class="text-black">Gender:</strong> {{$job->Gender}}</li>
-                <li class="mb-2"><strong class="text-black">Application Deadline:</strong> {{$job->application_deadline}}</li>
-      
-              </ul>
-             
-            </div>
-           
 
-            <div class="bg-light p-3 border rounded">
-              <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Share</h3>
-              <div class="px-3">
-                <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-facebook"></span></a>
-                <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-twitter"></span></a>
-                <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-linkedin"></span></a>
-              </div>
+                <li id="vacancy" class="mb-2"><strong class="text-black">Vacancy:</strong>{{$job->vacancy}}</li>
+                <li id="job_type" class="mb-2"><strong class="text-black">Employment Status:</strong> {{$job->job_type}}</li>
+                <li id="experience" class="mb-2"><strong class="text-black">Experience:</strong>{{$job->experience}}  </li>
+                <li id="job_region" class="mb-2"><strong class="text-black">Job Location:</strong>{{$job->job_region}} </li>
+                <li id="salary" class="mb-2"><strong class="text-black">Salary:</strong> {{$job->salary}} da/day</li>
+                <li id="Gender" class="mb-2"><strong class="text-black">Gender:</strong> {{$job->Gender}}</li>
+                <li id="application_deadline" class="mb-2"><strong class="text-black">Application Deadline:</strong> {{$job->application_deadline}}</li>
+
+              </ul>
+
             </div>
 
             <div class="bg-light p-4 border  mt-5 rounded mb-4">
-           
+
               <h3 class="text-primary  mt-6 h5 pl-3 mb-3 ">Categories</h3>
               <ul class="list-unstyled pl-3 mb-0">
          @foreach($categories as $category)
                 <li class="mb-2"><a href="{{route('category_single',$category->name)}}">{{$category->name}}</a></li>
       @endforeach
               </ul>
-             
             </div>
+
+              <div class="bg-light p-4 border  mt-1 rounded mb-1">
+                  <button id="ask-gpt" class="btn btn-primary btn-sm">Generate cover letter with Chat gpt</button>
+                  <div id="gpt-response" class="mt-3" style="min-height: 60px;"></div>
+              </div>
 
           </div>
         </div>
       </div>
     </section>
-
-    <section class="site-section" id="next">
-      <div class="container">
-
-        <div class="row mb-5 justify-content-center">
-          <div class="col-md-7 text-center">
-          <h2 class="section-title mb-2">{{$totaljobs}} Job Listed</h2>
- 
-
-          </div>
-        </div>
-        
-        <ul class="job-listings mb-5">
-        @foreach($jobs as $job)
-          <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-            <a href="{{ route('job_single', ['id' => $job->id]) }}"></a>
-            <div class="job-listing-logo">
-            @if($job->image)
-            <img src="{{ asset('jobimage/' . $job->image) }}" alt="Job Image" width="100" height="100">
-        @else
-            <!-- Display a placeholder image if there's no image for this job -->
-            <img src="{{ asset('path/to/placeholder/image.jpg') }}" alt="Placeholder Image" width="100" height="100">
-        @endif
-            </div>
-
-            <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-              <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                <h2>{{ $job->job_title}}</h2>
-  <strong>{{ $job->company_name}}</strong>
-              </div>
-              <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                <span class="icon-room"></span>{{ $job->job_region}}
-              </div>
-              <div class="job-listing-meta">
-                <span class="badge badge-danger">{{ $job->job_type}}</span>
-              </div>
-            </div>
-            @endforeach
-       
-           
-        
-
-          
-
-          
-        </ul>
-
-     
-
-      </div>
-    </section>
-    
-
-    <section class="bg-light pt-5 testimony-full">
-        
-        <div class="owl-carousel single-carousel">
-
-        
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-6 align-self-center text-center text-lg-left">
-                <blockquote>
-                  <p>&ldquo;Soluta quasi cum delectus eum facilis recusandae nesciunt molestias accusantium libero dolores repellat id in dolorem laborum ad modi qui at quas dolorum voluptatem voluptatum repudiandae.&rdquo;</p>
-                  <p><cite> &mdash; Corey Woods, @Dribbble</cite></p>
-                </blockquote>
-              </div>
-              <div class="col-lg-6 align-self-end text-center text-lg-right">
-                <img src="../assets/images/person_transparent_2.png" alt="Image" class="img-fluid mb-0">
-              </div>
-            </div>
-          </div>
-
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-6 align-self-center text-center text-lg-left">
-                <blockquote>
-                  <p>&ldquo;Soluta quasi cum delectus eum facilis recusandae nesciunt molestias accusantium libero dolores repellat id in dolorem laborum ad modi qui at quas dolorum voluptatem voluptatum repudiandae.&rdquo;</p>
-                  <p><cite> &mdash; Chris Peters, @Google</cite></p>
-                </blockquote>
-              </div>
-              <div class="col-lg-6 align-self-end text-center text-lg-right">
-                <img src="../assets/images/person_transparent.png" alt="Image" class="img-fluid mb-0">
-              </div>
-            </div>
-          </div>
-
-      </div>
-
-    </section>
-
-    <section class="pt-5 bg-image overlay-primary fixed overlay" style="background-image: url('../asstes/images/hero_1.jpg');">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 align-self-center text-center text-md-left mb-5 mb-md-0">
-            <h2 class="text-white">Get The Mobile Apps</h2>
-            <p class="mb-5 lead text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit tempora adipisci impedit.</p>
-            <p class="mb-0">
-              <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span class="icon-apple mr-3"></span>App Store</a>
-              <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span class="icon-android mr-3"></span>Play Store</a>
-            </p>
-          </div>
-          <div class="col-md-6 ml-auto align-self-end">
-            <img src="../assets/images/apps.png" alt="Image" class="img-fluid">
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <footer class="site-footer">
-
+  <footer class="site-footer">
       <a href="#top" class="smoothscroll scroll-top">
         <span class="icon-keyboard_arrow_up"></span>
       </a>
-
       <div class="container">
         <div class="row mb-5">
           <div class="col-6 col-md-3 mb-4 mb-md-0">
@@ -448,25 +335,103 @@
         </div>
       </div>
     </footer>
-  
   </div>
 
-    <!-- SCRIPTS -->
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/isotope.pkgd.min.js"></script>
     <script src="../assets/js/stickyfill.min.js"></script>
     <script src="../assets/js/jquery.fancybox.min.js"></script>
     <script src="../assets/js/jquery.easing.1.3.js"></script>
-    
     <script src="../assets/js/jquery.waypoints.min.js"></script>
     <script src="../assets/js/jquery.animateNumber.min.js"></script>
     <script src="../assets/js/owl.carousel.min.js"></script>
-    
     <script src="../assets/js/bootstrap-select.min.js"></script>
-    
     <script src="../assets/js/custom.js"></script>
-
-     
   </body>
 </html>
+
+<script>
+    document.getElementById('ask-gpt').addEventListener('click', function () {
+        const responseContainer = document.getElementById('gpt-response');
+        const responsibilitiesText = document.getElementById('job-responsibilities').innerText;
+        const vacancy = document.getElementById('vacancy').innerText;
+        const experience = document.getElementById('experience').innerText;
+        const company_name = document.getElementById('company_name').innerText;
+
+        responseContainer.innerHTML = 'It may take a few seconds to generate a cover letter...';
+        responseContainer.style.maxHeight = '';
+
+        fetch('/generateCoverLetter', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                responsibilities: responsibilitiesText,
+                vacancy: vacancy,
+                experience: experience,
+                company_name: company_name
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                let text = data.data;
+                console.log('Ответ от сервера:', text);
+
+                if (!text) {
+                    responseContainer.innerHTML = 'Ошибка: пустой ответ от сервера';
+                    return;
+                }
+
+                responseContainer.innerHTML = '';
+                let i = 0;
+                let currentWord = '';
+                let wordCount = 0;
+
+                function typeChar() {
+                    if (i >= text.length) return;
+
+                    const char = text[i];
+
+                    if (char === '\n') {
+                        if (text[i + 1] === '\n') {
+                            responseContainer.innerHTML += '<br><br>';
+                            i += 2;
+                            currentWord = '';
+                        } else {
+                            responseContainer.innerHTML += '<br>';
+                            i++;
+                            currentWord = '';
+                        }
+                    } else {
+                        responseContainer.innerHTML += char;
+                        if (char === ' ' || char === '.' || char === ',') {
+                            wordCount++;
+                            currentWord = '';
+                        } else {
+                            currentWord += char;
+                        }
+                        i++;
+                    }
+
+                    responseContainer.scrollTop = responseContainer.scrollHeight;
+
+                    if (wordCount > 100) {
+                        responseContainer.style.maxHeight = '400px';
+                        responseContainer.style.overflowY = 'auto';
+                        responseContainer.style.padding = '10px';
+                        responseContainer.style.borderRadius = '8px';
+                        responseContainer.style.background = '#f8f9fa';
+                    }
+
+                    setTimeout(() => {
+                        requestAnimationFrame(typeChar);
+                    }, 15);
+                }
+
+                requestAnimationFrame(typeChar);
+            });
+    });
+</script>
