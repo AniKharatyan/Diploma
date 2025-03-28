@@ -23,20 +23,14 @@ class JobController extends Controller
 
     public function saveJob($id)
     {
-        // Check if the user is authenticated/logged in
         if (!Auth::check()) {
-            // Redirect the user to the login page or show an error message.
             return redirect()->route('login')->with('error', 'You need to log in to save jobs.');
         }
 
-        // Fetch the job by ID
         $job = Job::find($id);
 
-
-        // Save the job for the logged-in user (you may have a 'savedJobs' relationship in your User model)
         Auth::user()->savedJobs()->attach($job);
 
-        // Optionally, you can show a success message or redirect back with a success message.
         return redirect()->back()->with('success', 'Job saved successfully.');
     }
 
@@ -44,7 +38,6 @@ class JobController extends Controller
     {
         $user = Auth::user();
 
-        // Check if the job with the given ID exists in the user's favorites
         if ($user->savedJobs->contains($id)) {
             $user->savedJobs()->detach($id);
             return redirect()->back()->with('success', 'Job removed from favorites successfully!');
@@ -52,7 +45,6 @@ class JobController extends Controller
 
         return redirect()->back()->with('error', 'Job not found in favorites!');
     }
-
 
     public function show_job(string $id)
     {
@@ -112,11 +104,9 @@ class JobController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Save the image
         $imageName = time() . '.' . $request->image->getClientOriginalExtension();
         $request->image->move('jobimage', $imageName);
 
-        // Create a new Job instance and fill it with the request data
         $job = new Job;
         $job->job_title = $request->input('job_title');
         $job->job_region = $request->input('job_region');
@@ -135,11 +125,8 @@ class JobController extends Controller
 
         $job->category_id = $request->input('category_id');
 
-
-        // Save the job to the database
         $job->save();
 
-        // Redirect to the job view page or any other desired page
         return redirect()->route('job_view');
     }
 

@@ -11,11 +11,6 @@ class UsersController extends Controller
         return view('users.users',compact('users'));
     }
 
-   
-
-  
-
-
     public function delete_job(string $id)
     {
         $user = User::find($id);

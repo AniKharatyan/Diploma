@@ -7,22 +7,12 @@ use App\Models\Contact;
 
 class ContactController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function contacts()
     {
         $contacts = contact::all();
         return view('contact.contacts',compact('contacts'));
     }
 
- 
-
- 
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -41,22 +31,9 @@ class ContactController extends Controller
         $contact->message = $request->input('message');
         $contact->save();
 
-        // Optionally, you can redirect the user to a thank you page or any other page
         return view('user.home');
     }
 
-  
-
-  
-
-    /**
-     * Update the specified resource in storage.
-     */
-  
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function delete(string $id)
     {
         $message = Contact::find($id);

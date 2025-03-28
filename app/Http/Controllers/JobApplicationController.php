@@ -9,26 +9,21 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-
-
 use Illuminate\Http\Request;
 
 class JobApplicationController extends Controller
 {
     public function apply(Job $job)
     {
-        // Get the authenticated user
         $user = auth()->user();
 
-        // Get the user's CV from the cv_user table
         $cvUser = CVuser::where('user_id', $user->id)->first(); // Update the model name to CVuser
 
         if (!$cvUser) {
             return redirect()->back()->with('error', 'You must upload your CV before applying.');
         }
 
-        // Create a new job application and associate it with the user's CV and the job
-        DB::beginTransaction(); // Start a transaction
+        DB::beginTransaction();
         try {
             $jobApplication = new Application();
             $jobApplication->user_id = $user->id;
@@ -38,17 +33,14 @@ class JobApplicationController extends Controller
             // Optionally, you can include other job-related information here
             $jobApplication->save();
 
-            DB::commit(); // Commit the transaction
+            DB::commit();
         } catch (\Exception $e) {
-            DB::rollback(); // Rollback the transaction if an error occurs
+            DB::rollback();
             return redirect()->back()->with('error', 'An error occurred while processing your application.');
         }
 
-        // Optionally, you can notify the user or perform other actions here
-
         return redirect()->back()->with('success', 'Application submitted successfully!');
     }
-
 
     public function applications(){
         $applications=Application::all();
@@ -72,7 +64,6 @@ class JobApplicationController extends Controller
         $application->save();
 
         return redirect()->back();
-
     }
 
     public function viewCV($userId)
@@ -80,12 +71,9 @@ class JobApplicationController extends Controller
         $cvUser = CVUser::where('user_id', $userId)->first();
 
         if (!$cvUser || !Storage::exists($cvUser->cv_path)) {
-            abort(404); // CV not found or doesn't exist in the specified directory
+            abort(404);
         }
-
-        // Optionally, you can perform further actions like logging the CV access
 
         return Storage::download($cvUser->cv_path);
     }
-
 }
