@@ -38,22 +38,24 @@ class HomeController extends Controller
 
     public function index()
     {
-        $totaljobs = Job::count();
+        $jobs = Job::query()->get();
         $totalusers = User::count();
+        $totaljobs = Job::count();
         $acceptedApplications = Application::where('status', 'approved')->count();
-        $jobs = Job::all();
+        $companies = Job::query()->whereNotNull('image')->pluck('image');
 
-        return view('user.home', compact('totaljobs', 'totalusers', 'jobs', 'acceptedApplications'));
+        return view('user.home', compact('jobs', 'totalusers', 'totaljobs', 'acceptedApplications', 'companies'));
     }
 
     public function index2()
     {
-        $totaljobs = Job::count();
+        $jobs = Job::query()->get();
         $totalusers = User::count();
+        $totaljobs = Job::count();
         $acceptedApplications = Application::where('status', 'approved')->count();
+        $companies = Job::query()->whereNotNull('image')->pluck('image');
 
-        $jobs = Job::all();
-        return view('user.home', compact('totaljobs', 'totalusers', 'jobs', 'acceptedApplications'));
+        return view('user.home', compact('jobs', 'totalusers', 'totaljobs', 'acceptedApplications', 'companies'));
     }
 
     public function about()

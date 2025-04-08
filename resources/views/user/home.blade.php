@@ -114,7 +114,6 @@
               <h1 class="text-white font-weight-bold">The Easiest Way To Get Your Dream Job</h1>
               <p>Are you ready to turn your dreams into reality? Discover the easiest and most efficient way to secure your dream job with JobBoard.</p>
             </div>
-
           </div>
         </div>
       </div>
@@ -124,7 +123,6 @@
       </a>
 
     </section>
-
     <section class="py-5 bg-image overlay-primary fixed overlay" id="next">
       <div class="container">
         <div class="row mb-5 justify-content-center">
@@ -134,7 +132,6 @@
           </div>
         </div>
         <div class="row pb-0 block__19738 section-counter">
-
           <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
             <div class="d-flex align-items-center justify-content-center mb-2">
               <strong class="number" data-number="{{$totalusers}}">0</strong>
@@ -162,22 +159,38 @@
             </div>
             <span class="caption">Companies</span>
           </div>
-
-
         </div>
       </div>
     </section>
 
-
-
     <section class="site-section">
       <div class="container">
+          <div class="row justify-content-center mb-5">
+              <div class="col-lg-10">
+                  <form id="job_search_form" action="{{ route('job_search') }}" method="GET" class="search-form">
+                      <div class="row g-1 align-items-center">
+                          <div class="col-md-5">
+                              <input type="text" name="job_name" class="form-control" placeholder="Введите название вакансии">
+                          </div>
+                          <div class="col-md-4">
+                              <select name="job_country" id="job_country" class="form-select">
+                                  <option value="">Выберите страну</option>
+                              </select>
+                          </div>
+                          <div class="col-md-3">
+                              <button type="submit" class="btn btn-green w-100" id="searchBtn" disabled>
+                                  <i class="fas fa-search me-2"></i> Поиск
+                              </button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
 
-        <div class="row mb-5 justify-content-center">
+
+          <div class="row mb-5 justify-content-center">
           <div class="col-md-7 text-center">
           <h2 class="section-title mb-2">{{$totaljobs}} Job Listed</h2>
-
-
           </div>
         </div>
 
@@ -185,14 +198,13 @@
         @foreach($jobs as $job)
           <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
             <a href="{{ route('job_single', ['id' => $job->id]) }}"></a>
-            <div class="job-listing-logo">
-            @if($job->image)
-            <img src="{{ asset('jobimage/' . $job->image) }}" alt="Job Image" width="100" height="100">
-        @else
-            <!-- Display a placeholder image if there's no image for this job -->
-            <img src="{{ asset('path/to/placeholder/image.jpg') }}" alt="Placeholder Image" width="100" height="100">
-        @endif
-            </div>
+              <div class="job-listing-logo">
+                  @if($job->image)
+                      <img src="{{ asset('jobimage/' . $job->image) }}" alt="Job Image">
+                  @else
+                      <img src="{{ asset('path/to/placeholder/image.jpg') }}" alt="Placeholder Image">
+                  @endif
+              </div>
 
             <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
               <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
@@ -230,46 +242,31 @@
 
 
     <section class="site-section py-4">
-      <div class="container">
-
-        <div class="row align-items-center">
-          <div class="col-12 text-center mt-4 mb-5">
-            <div class="row justify-content-center">
-              <div class="col-md-7">
-                <h2 class="section-title mb-2">Company We've Helped</h2>
-                <p class="lead">Over the years, JobBoard has been instrumental in connecting talented individuals with leading companies worldwide.</p>
-              </div>
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title mb-2">Companies We've Helped</h2>
+                <p class="lead">Over the years, JobBoard has connected talented individuals with top companies worldwide.</p>
             </div>
 
-          </div>
-          <div class="col-6 col-lg-3 col-md-6 text-center">
-            <img src="../assets/images/logo_mailchimp.svg" alt="Image" class="img-fluid logo-1">
-          </div>
-          <div class="col-6 col-lg-3 col-md-6 text-center">
-            <img src="../assets/images/logo_paypal.svg" alt="Image" class="img-fluid logo-2">
-          </div>
-          <div class="col-6 col-lg-3 col-md-6 text-center">
-            <img src="../assets/images/logo_stripe.svg" alt="Image" class="img-fluid logo-3">
-          </div>
-          <div class="col-6 col-lg-3 col-md-6 text-center">
-            <img src="../assets/images/logo_visa.svg" alt="Image" class="img-fluid logo-4">
-          </div>
+            <div class="company-slider d-flex align-items-center overflow-hidden">
+                <div class="slider-track d-flex">
+                    @foreach($companies as $companyLogo)
+                        <div class="slider-item px-4">
+                            <img src="{{ asset('jobimage/' . $companyLogo) }}" alt="{{ $companyLogo }}" class="logo-img">
+                        </div>
+                    @endforeach
 
-          <div class="col-6 col-lg-3 col-md-6 text-center">
-            <img src="../assets/images/logo_apple.svg" alt="Image" class="img-fluid logo-5">
-          </div>
-          <div class="col-6 col-lg-3 col-md-6 text-center">
-            <img src="../assets/images/logo_tinder.svg" alt="Image" class="img-fluid logo-6">
-          </div>
-          <div class="col-6 col-lg-3 col-md-6 text-center">
-            <img src="../assets/images/logo_sony.svg" alt="Image" class="img-fluid logo-7">
-          </div>
-          <div class="col-6 col-lg-3 col-md-6 text-center">
-            <img src="../assets/images/logo_airbnb.svg" alt="Image" class="img-fluid logo-8">
-          </div>
+                    @foreach($companies as $companyLogo)
+                        <div class="slider-item px-4">
+                            <img src="{{ asset('jobimage/' . $companyLogo) }}" alt="{{ $companyLogo }}" class="logo-img">
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
-      </div>
     </section>
+
+
 
     <footer class="site-footer">
 
@@ -342,5 +339,120 @@
     <script src="../assets/js/quill.min.js"></script>
     <script src="../assets/js/bootstrap-select.min.js"></script>
     <script src="../assets/js/custom.js"></script>
+
+  <script>
+      $(document).ready(function(){
+          $.ajax({
+              url: "{{ route('get_countries') }}",
+              method: "GET",
+              dataType: "json",
+              success: function(data) {
+                  var options = '';
+                  $.each(data, function(index, country) {
+                      options += '<option value="'+country+'">'+country+'</option>';
+                  });
+                  $('#job_country').append(options);
+                  $('#searchBtn').removeAttr('disabled');
+              },
+              error: function(){
+                  console.error('Ошибка при загрузке списка стран');
+              }
+          });
+      });
+  </script>
+
+  <!-- FontAwesome (иконки) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+      .search-form {
+          background: linear-gradient(145deg, #ffffff, #f1f1f1);
+          padding: 2.5rem;
+          border-radius: 1.5rem;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+          transition: all 0.3s ease-in-out;
+      }
+
+      .search-form:hover {
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+      }
+
+      .search-form .form-control,
+      .search-form .form-select {
+          border-radius: 0.75rem;
+          height: 50px;
+          border: 1px solid #ced4da;
+          transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .search-form .form-control:focus,
+      .search-form .form-select:focus {
+          border-color: rgba(137, 186, 22, 0.9);
+          box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.2);
+      }
+
+      .search-form .btn-green {
+          background: rgba(137, 186, 22, 0.9);
+          color: white;
+          height: 50px;
+          border: none;
+          border-radius: 0.75rem;
+          font-weight: 600;
+          transition: background 0.3s ease;
+      }
+
+      .search-form .btn-green:hover {
+          background: rgba(137, 186, 22, 0.9);
+      }
+
+      .job-listing-logo img {
+          width: 100px;
+          height: 100px;
+          object-fit: cover;
+          border-radius: 0.5rem;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      }
+
+      .job-listing {
+          margin-bottom: 1.5rem;
+      }
+
+      .company-slider {
+          white-space: nowrap;
+          position: relative;
+          height: 100px;
+      }
+
+      .slider-track {
+          display: flex;
+          animation: scroll 30s linear infinite;
+      }
+
+      .slider-item {
+          flex: 0 0 auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .logo-img {
+          max-height: 60px;
+          max-width: 120px;
+          object-fit: contain;
+          filter: grayscale(100%);
+          transition: transform 0.3s ease, filter 0.3s ease;
+      }
+
+      .logo-img:hover {
+          transform: scale(1.1);
+          filter: grayscale(0%);
+      }
+
+      @keyframes scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+      }
+  </style>
+
   </body>
 </html>

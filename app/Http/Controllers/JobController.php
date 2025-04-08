@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Category;
@@ -66,7 +70,7 @@ class JobController extends Controller
         $job->company_name = $request->company_name;
         $job->salary = $request->salary;
         $job->experience = $request->experience;
-        $job->Gender = $request->Gender;
+//        $job->Gender = $request->Gender;
         $job->application_deadline = $request->application_deadline;
         $job->responsibilities = $request->responsibilities;
         $job->otherbenefits = $request->otherbenefits;
@@ -80,7 +84,7 @@ class JobController extends Controller
             $job->image = $imagename;
         }
         $job->save();
-        return redirect()->back()->with('message', 'Job succesfully');
+        return redirect()->back();
     }
 
 
@@ -100,7 +104,7 @@ class JobController extends Controller
             'application_deadline' => 'required',
             'education_experience' => 'required',
             'otherbenefits' => 'required',
-            'category_id' => 'required', // Add category_id validation
+            'category_id' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -135,5 +139,35 @@ class JobController extends Controller
         $job = Job::find($id);
         $job->delete();
         return redirect()->back();
+    }
+
+    public function getCountries(): JsonResponse
+    {
+        $countries = Job::query()->pluck('job_region')->unique();
+
+        return response()->json($countries);
+    }
+
+    public function job_search(Request $request)
+    {
+        $jobName = $request->input('job_name');
+        $jobCountry = $request->input('job_country');
+
+        $query = Job::query();
+
+        if (!empty($jobName)) {
+            $query->where('job_title', 'like', '%' . $jobName . '%');
+        }
+        if (!empty($jobCountry)) {
+            $query->where('job_region', $jobCountry);
+        }
+
+        $jobs = $query->get();
+        $totalusers = User::count();
+        $totaljobs = Job::count();
+        $acceptedApplications = Application::where('status', 'approved')->count();
+        $companies = Job::query()->whereNotNull('image')->pluck('image');
+
+        return view('user.home', compact('jobs', 'totalusers', 'totaljobs', 'acceptedApplications', 'companies'));
     }
 }

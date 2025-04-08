@@ -210,30 +210,34 @@
             <div class="col-6">
                 <form action="{{ route('save_job', ['id' => $job->id]) }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn btn-block btn-md {{ Auth::user()->hasSavedJob($job->id) ? 'btn-primary' : 'btn-light' }}">
+                    <button type="submit" class="btn btn-block btn-md
+                         {{ Auth::user()->hasSavedJob($job->id) ? 'btn-success text-green-700' : 'btn-light' }}">
+
                         @if(Auth::user()->hasSavedJob($job->id))
                             <i class="icon-check"></i> Job Saved
                         @else
-                            <i class="icon-heart"></i> Save Job
+                            <i class="icon-heart text-dark"></i> Save Job
                         @endif
                     </button>
+
                 </form>
             </div>
-            <div class="col-6">
-                @if(Auth::user()->hasAppliedForJob($job->id))
-                    <button class="btn btn-block btn-md btn-primary" disabled>
-                        <span class="icon-check"></span> Applied
-                    </button>
-                @else
-                    <form action="{{ route('apply', ['job' => $job->id]) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-block btn-md btn-primary">
-                            <span class="icon-paper-plane mr-2"></span> Apply Now
-                        </button>
-                    </form>
-                @endif
-            </div>
-        @else
+                        <div class="col-6">
+                            @if(Auth::user()->hasAppliedForJob($job->id))
+                                <button class="btn btn-block btn-md btn-success text-white" disabled>
+                                    <span class="icon-check text-white"></span> Applied
+                                </button>
+                            @else
+                                <form action="{{ route('apply', ['job' => $job->id]) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-block btn-md btn-primary">
+                                        <span class="icon-paper-plane mr-2"></span> Apply Now
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
+
+                    @else
             <div class="col-6">
                 <button class="btn btn-block btn-primary btn-md"><a href="{{ route('login') }}">You need to register first</a></button>
             </div>
@@ -254,7 +258,6 @@
                 <li id="experience" class="mb-2"><strong class="text-black">Experience:</strong>{{$job->experience}}  </li>
                 <li id="job_region" class="mb-2"><strong class="text-black">Job Location:</strong>{{$job->job_region}} </li>
                 <li id="salary" class="mb-2"><strong class="text-black">Salary:</strong> {{$job->salary}} da/day</li>
-                <li id="Gender" class="mb-2"><strong class="text-black">Gender:</strong> {{$job->Gender}}</li>
                 <li id="application_deadline" class="mb-2"><strong class="text-black">Application Deadline:</strong> {{$job->application_deadline}}</li>
 
               </ul>

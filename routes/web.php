@@ -39,7 +39,8 @@ Route::get('/update_job/{id}', [JobController::class, 'update_job'])->name('upda
 Route::post('/edit_job/{id}', [JobController::class, 'edit_job'])->name('edit_job');
 Route::get('/remove_from_favorites/{id}', [JobController::class, 'removeFromFavorites'])->name('remove_from_favorites');
 Route::post('/save-job/{id}', [JobController::class, 'saveJob'])->name('save_job');
-
+Route::get('/job_search', [JobController::class, 'job_search'])->name('job_search');
+Route::get('/get-countries', [JobController::class, 'getCountries'])->name('get_countries');
 
 Route::get('/contacts', [ContactController::class, 'contacts'])->name('contacts');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contact.store');
