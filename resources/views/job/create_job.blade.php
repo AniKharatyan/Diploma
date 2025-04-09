@@ -35,7 +35,7 @@
         <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-    
+
                     <h4 class="card-title">Add</h4>
                     @if ($errors->any())
         <div class="alert alert-danger my-3">
@@ -46,9 +46,9 @@
             </ul>
         </div>
     @endif
-                   
+
                     <form action="{{url('store_jobs')}}" method="POST" enctype="multipart/form-data">
-                    @csrf 
+                    @csrf
                       <div class="form-group">
                         <label for="">Job title</label>
                         <input type="text" class="form-control" name="job_title" value="{{ old('job_title') }}">
@@ -64,7 +64,7 @@
 </div>
 <!-- ... (remaining HTML code) ... -->
 
-                     
+
                       <div class="form-group">
                         <label for="">Job region</label>
                         <input type="text" class="form-control" name="job_region"  value="{{ old('job_region') }}">
@@ -78,28 +78,20 @@
                         <input type="text" class="form-control" name="job_type"  value="{{ old('job_type') }}">
                       </div>
                       <div class="form-group">
-                        <label for="">experience</label>
+                        <label for="">Experience</label>
                         <input type="text" class="form-control" name="experience" value="{{ old('experience') }}">
                       </div>
                       <div class="form-group">
-                        <label for="">application deadline</label>
+                        <label for="">Application deadline</label>
                         <input type="date" class="form-control" name="application_deadline" value="{{ old('application_deadline') }}">
                       </div>
                       <div class="form-group">
-                        <label for="">vacancy</label>
+                        <label for="">Vacancy</label>
                         <input type="text" class="form-control" name="vacancy" value="{{ old('vacancy') }}">
                       </div>
+
                       <div class="form-group">
-                        <label for="">Gender</label>
-                        <select class="form-control" name="Gender" value="{{ old('Gender') }}">
-                          <option>Male</option>
-                          <option>Female</option>
-                          <option>Any</option>
-                        </select>
-                      </div>
-                     
-                      <div class="form-group">
-                        <label for="">salary</label>
+                        <label for="">Salary</label>
                         <input type="number" class="form-control" name="salary" value="{{ old('salary') }}">
                       </div>
                       <div class="form-group">
@@ -107,24 +99,24 @@
                         <textarea class="form-control"  rows="4" name="job_description" value="{{ old('job_description') }}"></textarea>
                       </div>
                       <div class="form-group">
-                        <label for="">responsibilities</label>
+                        <label for="">Responsibilities</label>
                         <textarea class="form-control" name="responsibilities" rows="4" value="{{ old('responsibilities') }}"></textarea>
                       </div>
                       <div class="form-group">
-                        <label for="">education experience </label>
+                        <label for="">Education experience </label>
                         <textarea class="form-control" name="education_experience" rows="4" value="{{ old('education_experience') }}"></textarea>
                       </div>
                       <div class="form-group">
-                        <label for="">other benifits</label>
+                        <label for="">Other benifits</label>
                         <textarea class="form-control" name="otherbenefits" rows="4" value="{{ old('otherbenefits') }}"></textarea>
                       </div>
                       <div class="form-group">
                         <label>File upload</label>
                         <input type="file" name="image" required="">
-                        
+
                       </div>
                       <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                      
+
                     </form>
                   </div>
                 </div>
@@ -135,4 +127,115 @@
     @include('admin.script')
     <!-- End custom js for this page -->
   </body>
+
+  <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+      body {
+          background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+          color: #e6edf3;
+          font-family: 'Inter', sans-serif;
+          margin: 0;
+          padding: 0;
+      }
+
+      .card {
+          background: rgba(22, 27, 34, 0.7);
+          border-radius: 20px;
+          padding: 2rem;
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+          margin: 2rem auto;
+      }
+
+      .card-title {
+          font-size: 2rem;
+          font-weight: 600;
+          margin-bottom: 1.5rem;
+          text-align: center;
+          color: #f0f6fc;
+      }
+
+      .form-group {
+          position: relative;
+          margin-bottom: 1.8rem;
+      }
+
+      .form-group label {
+          display: block;
+          font-size: 0.95rem;
+          margin-bottom: 0.5rem;
+          color: #c9d1d9;
+          transition: color 0.3s ease;
+      }
+
+      .form-control,
+      select {
+          width: 100%;
+          padding: 14px 16px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid #30363d;
+          border-radius: 12px;
+          color: #ffffff;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+          outline: none;
+          backdrop-filter: blur(6px);
+      }
+
+      .form-control:focus,
+      select:focus {
+          border-color: #58a6ff;
+          background-color: #f0f6fc;
+          box-shadow: 0 0 0 4px rgba(88, 166, 255, 0.2);
+      }
+
+      textarea.form-control {
+          min-height: 140px;
+          resize: vertical;
+      }
+
+      .btn-primary {
+          display: inline-block;
+          background: linear-gradient(135deg, #3fb950, #238636);
+          border: none;
+          padding: 12px 28px;
+          font-weight: 600;
+          color: #fff;
+          border-radius: 12px;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+          cursor: pointer;
+      }
+
+      .btn-primary:hover {
+          background: linear-gradient(135deg, #2ea043, #196c2e);
+          box-shadow: 0 10px 20px rgba(63, 185, 80, 0.2);
+          transform: scale(1.03);
+      }
+
+      .alert-danger {
+          background-color: rgba(211, 47, 47, 0.1);
+          border-left: 4px solid #d32f2f;
+          color: #ffbaba;
+          padding: 1rem;
+          border-radius: 12px;
+          margin-bottom: 1.5rem;
+      }
+
+      input[type="file"] {
+          color: #fff;
+          padding: 12px;
+          border-radius: 10px;
+          background-color: rgba(255,255,255,0.05);
+          border: 1px solid #30363d;
+      }
+
+      ::placeholder {
+          color: #8b949e;
+      }
+  </style>
+
 </html>

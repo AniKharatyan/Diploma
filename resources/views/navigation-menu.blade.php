@@ -3,15 +3,8 @@
     <div class="">
         <div class="">
             <div class="flex">
-                <!-- Logo -->
-              
-
-                <!-- Navigation Links -->
-               
             </div>
-
             <div >
-                <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="ml-3 relative">
                         <x-dropdown align="right" width="60">

@@ -14,7 +14,7 @@
                 <div class="profile-name">
                 <x-app-layout>
 </x-app-layout>
-               
+
                 </div>
               </div>
               <a href="#" id="profile-dropdown" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
@@ -75,7 +75,7 @@
               <span class="menu-title">Category</span>
             </a>
           </li>
-     
+
           <li class="nav-item menu-items">
             <a class="nav-link" href="{{url('job_view')}}">
               <span class="menu-icon">
@@ -91,18 +91,6 @@
                 <i class="mdi mdi-file-document-box"></i>
               </span>
               <span class="menu-title">Applications</span>
-            </a>
-          </li>
-
-        
-
-
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="{{url('contacts')}}">
-              <span class="menu-icon">
-                <i class="mdi mdi-file-document-box"></i>
-              </span>
-              <span class="menu-title">Messages</span>
             </a>
           </li>
         </ul>
