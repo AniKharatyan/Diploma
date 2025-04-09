@@ -118,7 +118,7 @@
 
       .form-control:focus {
           border-color: #58a6ff;
-          background-color: rgba(255, 255, 255, 0.08);
+          background-color: #fff;
           box-shadow: 0 0 0 4px rgba(88, 166, 255, 0.2);
       }
 

@@ -157,29 +157,38 @@
 
                                     <td>
                                         @if($application->cover_letter)
-                                            <button class="btn btn-outline-light btn-sm" data-bs-toggle="collapse" data-bs-target="#coverLetter{{ $application->id }}">
+                                            <button class="btn btn-outline-light btn-sm mb-2"
+                                                    onclick="toggleLetter({{ $application->id }})"
+                                                    id="btn-{{ $application->id }}">
                                                 View
                                             </button>
+
+                                            <div id="letter-{{ $application->id }}" class="cover-letter-box" style="display: none;">
+                                                {{ $application->cover_letter }}
+                                            </div>
                                         @else
                                             <span class="text-muted">N/A</span>
                                         @endif
                                     </td>
+
+
+
 
                                     <td><div class="badge badge-outline-warning">{{ $application->status }}</div></td>
                                     <td><a class="btn btn-success" href="{{ url('approved', $application->id) }}">Approved</a></td>
                                     <td><a class="btn btn-danger" href="{{ url('canceled', $application->id) }}">Canceled</a></td>
                                 </tr>
 
-                                @if($application->cover_letter)
-                                    <tr class="collapse" id="coverLetter{{ $application->id }}">
-                                        <td colspan="10" class="collapse-row">
-                                            <strong>Cover Letter:</strong><br>
-                                            <div style="white-space: pre-line; font-size: 0.95rem; color: #cbd5e1;">
-                                                {{ $application->cover_letter }}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endif
+{{--                                @if($application->cover_letter)--}}
+{{--                                    <tr class="collapse" id="coverLetter{{ $application->id }}">--}}
+{{--                                        <td colspan="10" class="collapse-row">--}}
+{{--                                            <strong>Cover Letter:</strong><br>--}}
+{{--                                            <div style="white-space: pre-line; font-size: 0.95rem; color: #cbd5e1;">--}}
+{{--                                                {{ $application->cover_letter }}--}}
+{{--                                            </div>--}}
+{{--                                        </td>--}}
+{{--                                    </tr>--}}
+{{--                                @endif--}}
 
                             @endforeach
                             </tbody>
@@ -193,8 +202,38 @@
 </div>
 
 @include('admin.script')
-
-<!-- Bootstrap JS (обязательно для collapse) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function toggleLetter(id) {
+        const content = document.getElementById('letter-' + id);
+        const button = document.getElementById('btn-' + id);
+
+        if (content.style.display === 'none' || content.style.display === '') {
+            content.style.display = 'block';
+            button.innerText = 'Hide';
+        } else {
+            content.style.display = 'none';
+            button.innerText = 'View';
+        }
+    }
+</script>
+
 </body>
+
+<style>
+    .cover-letter-box {
+        height: 200px;
+        overflow-y: scroll !important;
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 12px;
+        border: 1px solid #444;
+        border-radius: 10px;
+        color: #e6edf3;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        white-space: pre-line;
+        word-break: normal;
+        overflow-wrap: break-word;
+    }
+</style>
 </html>

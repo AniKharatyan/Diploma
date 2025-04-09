@@ -70,10 +70,9 @@ class JobController extends Controller
         $job->company_name = $request->company_name;
         $job->salary = $request->salary;
         $job->experience = $request->experience;
-//        $job->Gender = $request->Gender;
         $job->application_deadline = $request->application_deadline;
         $job->responsibilities = $request->responsibilities;
-        $job->otherbenefits = $request->otherbenefits;
+        $job->other_benefits = $request->otherbenefits;
         $job->education_experience = $request->education_experience;
         $job->job_description = $request->job_description;
         $job->vacancy = $request->vacancy;
@@ -96,7 +95,6 @@ class JobController extends Controller
             'job_type' => 'required',
             'experience' => 'required',
             'vacancy' => 'required',
-            'Gender' => 'required',
             'salary' => 'required',
             'company_name' => 'required',
             'job_description' => 'required',
@@ -118,7 +116,6 @@ class JobController extends Controller
         $job->experience = $request->input('experience');
         $job->vacancy = $request->input('vacancy');
         $job->company_name = $request->input('company_name');
-        $job->Gender = $request->input('Gender');
         $job->salary = $request->input('salary');
         $job->application_deadline = $request->input('application_deadline');
         $job->job_description = $request->input('job_description');
@@ -126,7 +123,6 @@ class JobController extends Controller
         $job->education_experience = $request->input('education_experience');
         $job->otherbenefits = $request->input('otherbenefits');
         $job->image = $imageName;
-
         $job->category_id = $request->input('category_id');
 
         $job->save();

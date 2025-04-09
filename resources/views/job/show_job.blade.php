@@ -99,7 +99,7 @@
                         </div>
 
                         <div class="form-group">
-                        <label for="">Education experience </label>
+                        <label for="">Education</label>
                         <input type="text" class="form-control" name="education_experience" value="{{  $job->education_experience }}" disabled>
                       </div>
                       <div class="form-group">
@@ -111,16 +111,12 @@
                 </div>
               </div>
         </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
     <script src="{{ asset('admin/assets/vendors/chart.js/Chart.min.js') }}"></script>
 <script src="{{ asset('admin/assets/vendors/progressbar.js/progressbar.min.js') }}"></script>
 <script src="{{ asset('admin/assets/vendors/jvectormap/jquery-jvectormap.min.js') }}"></script>
 <script src="{{ asset('admin/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
 <script src="{{ asset('admin/assets/vendors/owl-carousel-2/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('admin/assets/js/jquery.cookie.js') }}"></script>
-<!-- End plugin js for this page -->
-<!-- inject:js -->
 <script src="{{ asset('admin/assets/js/off-canvas.js') }}"></script>
 <script src="{{ asset('admin/assets/js/hoverable-collapse.js') }}"></script>
 <script src="{{ asset('admin/assets/js/misc.js') }}"></script>

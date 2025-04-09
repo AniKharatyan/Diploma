@@ -108,7 +108,7 @@
                       </div>
                       <div class="form-group">
                         <label for="">Other benifits</label>
-                        <textarea class="form-control" name="otherbenefits" rows="4" value="{{ old('otherbenefits') }}"></textarea>
+                        <textarea class="form-control" name="otherbenefits" rows="4" value="{{ old('other_benefits') }}"></textarea>
                       </div>
                       <div class="form-group">
                         <label>File upload</label>

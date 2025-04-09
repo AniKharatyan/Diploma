@@ -199,7 +199,7 @@
             <div class="mb-5">
               <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-turned_in mr-3"></span>Other Benifits</h3>
               <ul class="list-unstyled m-0 p-0">
-                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>{{$job->otherbenefits}}</span></li>
+                <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>{{$job->other_benefits}}</span></li>
 
               </ul>
             </div>
@@ -230,10 +230,12 @@
                             @else
                                 <form action="{{ route('apply', ['job' => $job->id]) }}" method="POST">
                                     @csrf
+                                    <input type="hidden" name="cover_letter" id="cover-letter-field">
                                     <button type="submit" class="btn btn-block btn-md btn-primary">
                                         <span class="icon-paper-plane mr-2"></span> Apply Now
                                     </button>
                                 </form>
+
                             @endif
                         </div>
 
@@ -388,6 +390,13 @@
                     return;
                 }
 
+                // Вставляем сразу в скрытое поле
+                const coverLetterField = document.getElementById('cover-letter-field');
+                if (coverLetterField) {
+                    coverLetterField.value = text;
+                }
+
+                // Анимация вывода по символам
                 responseContainer.innerHTML = '';
                 let i = 0;
                 let currentWord = '';
@@ -402,12 +411,11 @@
                         if (text[i + 1] === '\n') {
                             responseContainer.innerHTML += '<br><br>';
                             i += 2;
-                            currentWord = '';
                         } else {
                             responseContainer.innerHTML += '<br>';
                             i++;
-                            currentWord = '';
                         }
+                        currentWord = '';
                     } else {
                         responseContainer.innerHTML += char;
                         if (char === ' ' || char === '.' || char === ',') {
@@ -436,5 +444,19 @@
 
                 requestAnimationFrame(typeChar);
             });
+    });
+
+    // Перестраховка — если вдруг вручную редактируют перед отправкой
+    document.addEventListener('DOMContentLoaded', function () {
+        const applyForm = document.querySelector('form[action*="apply"]');
+        if (applyForm) {
+            applyForm.addEventListener('submit', function () {
+                const coverLetter = document.getElementById('gpt-response')?.innerText.trim();
+                const coverLetterField = document.getElementById('cover-letter-field');
+                if (coverLetterField && coverLetter) {
+                    coverLetterField.value = coverLetter;
+                }
+            });
+        }
     });
 </script>

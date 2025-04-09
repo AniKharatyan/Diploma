@@ -194,32 +194,37 @@
           </div>
         </div>
 
-        <ul class="job-listings mb-5">
-        @foreach($jobs as $job)
-          <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-            <a href="{{ route('job_single', ['id' => $job->id]) }}"></a>
-              <div class="job-listing-logo">
-                  @if($job->image)
-                      <img src="{{ asset('jobimage/' . $job->image) }}" alt="Job Image">
-                  @else
-                      <img src="{{ asset('path/to/placeholder/image.jpg') }}" alt="Placeholder Image">
-                  @endif
+          <div class="position-relative">
+              <div class="row" id="job-slider">
+                  @foreach($jobs as $index => $job)
+                      <div class="col-md-6 col-lg-4 mb-4 job-slide" style="{{ $index >= 9 ? 'display: none;' : '' }}" data-page="{{ floor($index / 9) }}">
+                          <a href="{{ route('job_single', ['id' => $job->id]) }}" class="text-decoration-none text-dark">
+                              <div class="job-listing card p-3 h-100">
+                                  <div class="job-listing-logo mb-2 text-center">
+                                      @if($job->image)
+                                          <img src="{{ asset('jobimage/' . $job->image) }}" alt="Job Image" class="img-fluid logo-img">
+                                      @else
+                                          <img src="{{ asset('path/to/placeholder/image.jpg') }}" alt="Placeholder Image" class="img-fluid logo-img">
+                                      @endif
+                                  </div>
+                                  <div class="job-listing-about text-center">
+                                      <h5>{{ $job->job_title }}</h5>
+                                      <p class="mb-1 text-muted">{{ $job->company_name }}</p>
+                                      <p class="mb-1"><span class="icon-room"></span> {{ $job->job_region }}</p>
+                                      <span class="badge badge-danger">{{ $job->job_type }}</span>
+                                  </div>
+                              </div>
+                          </a>
+                      </div>
+                  @endforeach
               </div>
 
-            <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-              <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                <h2>{{ $job->job_title}}</h2>
-  <strong>{{ $job->company_name}}</strong>
-              </div>
-              <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                <span class="icon-room"></span>{{ $job->job_region}}
-              </div>
-              <div class="job-listing-meta">
-                <span class="badge badge-danger">{{ $job->job_type}}</span>
-              </div>
-            </div>
-            @endforeach
-        </ul>
+              @if(count($jobs) > 9)
+                  <button id="prevPage" class="slider-nav slider-left">&#8249;</button>
+                  <button id="nextPage" class="slider-nav slider-right">&#8250;</button>
+              @endif
+          </div>
+
 
 
 
@@ -359,6 +364,45 @@
               }
           });
       });
+
+      document.addEventListener('DOMContentLoaded', function () {
+          const items = document.querySelectorAll('.job-slide');
+          const itemsPerPage = 9;
+          const totalPages = Math.ceil(items.length / itemsPerPage);
+          let currentPage = 0;
+
+          function showPage(page) {
+              items.forEach(item => {
+                  item.classList.remove('active');
+                  item.style.display = 'none';
+              });
+
+              setTimeout(() => {
+                  items.forEach((item, index) => {
+                      if (parseInt(item.dataset.page) === page) {
+                          item.style.display = 'block';
+                          setTimeout(() => item.classList.add('active'), 10);
+                      }
+                  });
+              }, 100);
+          }
+
+          document.getElementById('prevPage')?.addEventListener('click', function () {
+              if (currentPage > 0) {
+                  currentPage--;
+                  showPage(currentPage);
+              }
+          });
+
+          document.getElementById('nextPage')?.addEventListener('click', function () {
+              if (currentPage < totalPages - 1) {
+                  currentPage++;
+                  showPage(currentPage);
+              }
+          });
+
+          showPage(currentPage); // initial
+      });
   </script>
 
   <!-- FontAwesome (иконки) -->
@@ -429,18 +473,47 @@
       }
 
       .slider-item {
-          flex: 0 0 auto;
+          width: 140px;
+          height: 80px;
           display: flex;
           align-items: center;
           justify-content: center;
+          padding: 10px;
+          background: #fff;
+          border-radius: 12px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       }
 
       .logo-img {
-          max-height: 60px;
-          max-width: 120px;
+          width: 100px;
+          height: 100px;
           object-fit: contain;
-          filter: grayscale(100%);
+          margin: 0 auto;
           transition: transform 0.3s ease, filter 0.3s ease;
+          filter: grayscale(100%);
+      }
+
+      .job-listing.card:hover .logo-img {
+          transform: scale(1.1);
+          filter: grayscale(0%);
+      }
+
+      .job-listing.card {
+          border: 1px solid #eaeaea;
+          border-radius: 1rem;
+          transition: box-shadow 0.3s ease;
+          background-color: #fff;
+      }
+
+      .job-listing.card:hover {
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+          border-color: rgba(137, 186, 22, 1); /* зелёная граница при наведении */
+      }
+      .logo-img {
+          width: 100px;
+          height: 100px;
+          object-fit: contain;
+          margin: 0 auto;
       }
 
       .logo-img:hover {
@@ -452,6 +525,50 @@
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
       }
+
+      .slider-nav {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background-color: rgba(137, 186, 22, 1);
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 45px;
+          height: 45px;
+          font-size: 24px;
+          font-weight: bold;
+          z-index: 999;
+          box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+      }
+
+      .job-slide {
+          transition: all 0.5s ease;
+          opacity: 0;
+          transform: translateX(50px);
+          display: none;
+      }
+
+      .job-slide.active {
+          display: block !important;
+          opacity: 1;
+          transform: translateX(0);
+      }
+
+      .slider-nav:hover {
+          background-color: rgba(117, 166, 12, 1);
+      }
+
+      .slider-left {
+          left: -80px;
+      }
+
+      .slider-right {
+          right: -80px;
+      }
+
   </style>
 
   </body>

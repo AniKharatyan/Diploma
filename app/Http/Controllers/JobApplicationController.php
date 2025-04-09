@@ -13,11 +13,17 @@ use Illuminate\Http\Request;
 
 class JobApplicationController extends Controller
 {
-    public function apply(Job $job)
+    public function apply(Request $request, Job $job)
     {
+        $request->validate([
+            'cover_letter' => 'required|string',
+        ]);
+
+        $coverLetter = $request->input('cover_letter');
+
         $user = auth()->user();
 
-        $cvUser = CVuser::where('user_id', $user->id)->first(); // Update the model name to CVuser
+        $cvUser = CVuser::where('user_id', $user->id)->first();
 
         if (!$cvUser) {
             return redirect()->back()->with('error', 'You must upload your CV before applying.');
@@ -28,9 +34,8 @@ class JobApplicationController extends Controller
             $jobApplication = new Application();
             $jobApplication->user_id = $user->id;
             $jobApplication->job_id = $job->id;
-            // Set the default value of status to "in progress"
             $jobApplication->status = 'in progress';
-            // Optionally, you can include other job-related information here
+            $jobApplication->cover_letter = $coverLetter;
             $jobApplication->save();
 
             DB::commit();

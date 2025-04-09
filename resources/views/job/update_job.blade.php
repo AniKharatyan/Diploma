@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
   @include('admin.css')
   </head>
   <body>
@@ -26,7 +25,6 @@
           </div>
         </div>
       </div>
-      <!-- partial:partials/_sidebar.html -->
      @include('admin.sidebar')
       <!-- partial -->
      @include('admin.navbar')
@@ -64,27 +62,20 @@
                         <input type="text" class="form-control" name="company_name"  value="{{ $job->company_name }}" >
                       </div>
                       <div class="form-group">
-                        <label for="">experience</label>
+                        <label for="">Experience</label>
                         <input type="text" class="form-control" name="experience" value="{{ $job->experience}}">
                       </div>
                       <div class="form-group">
-                        <label for="">application deadline</label>
+                        <label for="">Application deadline</label>
                         <input type="date" class="form-control" name="application_deadline" value="{{ $job->application_deadline}}">
                       </div>
                       <div class="form-group">
-                        <label for="">vacancy</label>
+                        <label for="">Vacancy</label>
                         <input type="text" class="form-control" name="vacancy" value="{{ $job->vacancy}}">
                       </div>
-                      <div class="form-group">
-                        <label for="">Gender</label>
-                        <select class="form-control" name="Gender" value="{{ $job->Gender}}">
-                          <option>{{ $job->Gender}}</option>
-
-                        </select>
-                      </div>
 
                       <div class="form-group">
-                        <label for="">salary</label>
+                        <label for="">Salary</label>
                         <input type="number" class="form-control" name="salary" value="{{ $job->salary}}">
                       </div>
                         <div class="form-group">
@@ -98,31 +89,25 @@
                         </div>
 
                       <div class="form-group">
-                        <label for="">education experience </label>
+                        <label for="">Education</label>
                         <input type="text" class="form-control" name="education_experience" value="{{  $job->education_experience }}" >
                       </div>
                       <div class="form-group">
-                        <label for="">other benifits</label>
-                        <input type="text" class="form-control" name="otherbenefits" value="{{  $job->otherbenefits }}" >
+                        <label for="">Other benifits</label>
+                        <input type="text" class="form-control" name="otherbenefits" value="{{  $job->other_benefits }}" >
                       </div>
 
         <div  class="form-group">
             <label for="">Change image</label>
             <input type="file" name="file">
         </div>
-
-
                       <button type="submit" class="btn btn-primary mr-2">Submit</button>
-
                     </form>
                   </div>
                 </div>
               </div>
         </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
     @include('admin.script')
-    <!-- End custom js for this page -->
   </body>
 
   <style>
