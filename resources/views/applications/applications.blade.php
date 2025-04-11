@@ -107,7 +107,6 @@
         <div class="col-md-12 p-0 m-0">
             <div class="card-body card-body-padding d-flex align-items-center justify-content-between">
                 <div class="ps-lg-1 d-flex align-items-center justify-content-between w-100">
-                    <p class="mb-0 font-weight-medium me-3 buy-now-text">Free 24/7 customer support, updates, and more with this template!</p>
                     <div class="d-flex">
                         <a href="https://www.bootstrapdash.com/product/corona-free/" class="btn me-2 buy-now-btn border-0">Get Pro</a>
                         <a href="#"><i class="mdi mdi-home me-3 text-white"></i></a>
@@ -126,6 +125,70 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">List of Applications</h4>
+
+
+                    <form method="GET" action="{{ route('applications.index') }}"
+                          class="mb-5 p-4 d-flex flex-wrap gap-4 align-items-end"
+                          style="background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+             border-radius: 20px;
+             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);">
+
+                        {{-- Category --}}
+                        <div style="flex: 1; min-width: 240px;">
+                            <label for="category" class="form-label text-light mb-2">
+                                <i class="bi bi-tags-fill me-2 text-info"></i>Category
+                            </label>
+                            <div class="position-relative">
+                                <i class="bi bi-list-ul position-absolute text-light" style="top: 50%; left: 12px; transform: translateY(-50%); z-index: 2;"></i>
+                                <select id="category" name="category" class="form-select tom-select">
+                                    <option value="">All Categories</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                        </div>
+
+                        {{-- Company --}}
+                        <div style="flex: 1; min-width: 240px;">
+                            <label for="company" class="form-label text-light mb-2">
+                                <i class="bi bi-building-fill me-2 text-success"></i>Company
+                            </label>
+                            <div class="position-relative">
+                                <i class="bi bi-briefcase-fill position-absolute text-light" style="top: 50%; left: 12px; transform: translateY(-50%); z-index: 2;"></i>
+                                <select id="company" name="company" class="form-select tom-select">
+                                    <option value="">All Companies</option>
+                                    @foreach($companies as $company)
+                                        <option value="{{ $company }}" {{ request('company') == $company ? 'selected' : '' }}>
+                                            {{ $company }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                        </div>
+
+                        {{-- Buttons --}}
+                        <div class="d-flex gap-3" style="min-width: 160px;">
+                            <button type="submit" class="btn btn-outline-light w-100"
+                                    style="height: 40px; border-radius: 12px; transition: 0.3s;">
+                                <i class="bi bi-funnel-fill me-1"></i> Filter
+                            </button>
+
+                            @if(request()->has('category') || request()->has('company'))
+                                <a href="{{ route('applications.index') }}" class="btn btn-outline-danger w-100"
+                                   style="height: 40px; border-radius: 12px; transition: 0.3s;">
+                                    <i class="bi bi-x-circle me-1"></i> Reset
+                                </a>
+                            @endif
+                        </div>
+                    </form>
+
+
+
 
                     <div class="table-responsive">
                         <table class="table table-dark">
@@ -178,18 +241,6 @@
                                     <td><a class="btn btn-success" href="{{ url('approved', $application->id) }}">Approved</a></td>
                                     <td><a class="btn btn-danger" href="{{ url('canceled', $application->id) }}">Canceled</a></td>
                                 </tr>
-
-{{--                                @if($application->cover_letter)--}}
-{{--                                    <tr class="collapse" id="coverLetter{{ $application->id }}">--}}
-{{--                                        <td colspan="10" class="collapse-row">--}}
-{{--                                            <strong>Cover Letter:</strong><br>--}}
-{{--                                            <div style="white-space: pre-line; font-size: 0.95rem; color: #cbd5e1;">--}}
-{{--                                                {{ $application->cover_letter }}--}}
-{{--                                            </div>--}}
-{{--                                        </td>--}}
-{{--                                    </tr>--}}
-{{--                                @endif--}}
-
                             @endforeach
                             </tbody>
                         </table>
@@ -218,6 +269,9 @@
     }
 </script>
 
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.default.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+
 </body>
 
 <style>
@@ -235,5 +289,49 @@
         word-break: normal;
         overflow-wrap: break-word;
     }
+
+    /* Кастомизация выпадающих списков */
+    select.form-select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+        background-color: rgba(22, 27, 34, 0.75);
+        color: #e6edf3;
+        padding: 10px 16px 10px 40px;
+        font-size: 0.95rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+    }
+
+    select.form-select:focus {
+        outline: none;
+        border-color: #58a6ff;
+        box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.25);
+    }
+
+    /* Иконка стрелки */
+    select.form-select::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        width: 10px;
+        height: 10px;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon fill='%23e6edf3' points='70,100 30,50 110,50'/%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: translateY(-50%);
+    }
+
+    /* Стили опций */
+    select.form-select option {
+        background-color: #1e1e2f;
+        color: #e6edf3;
+    }
+
 </style>
 </html>

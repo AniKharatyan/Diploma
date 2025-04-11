@@ -17,7 +17,7 @@ class Application extends Model
     }
     public function cvUser()
     {
-        return $this->belongsTo(CVuser::class, 'user_id'); // Correct the case for the CVUser model
+        return $this->belongsTo(CVuser::class, 'user_id');
     }
 
     public function User()

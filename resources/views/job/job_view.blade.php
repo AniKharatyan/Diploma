@@ -41,7 +41,66 @@
                 <button class="btn btn-primary" onclick="window.location.href='{{ route('create_job') }}'">Create a job</button>
               </div>
 
-                    </p>
+
+                      <form method="GET" action="{{ route('job_list') }}"
+                            class="mb-4 p-4 d-flex flex-wrap gap-4 align-items-end"
+                            style="background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+             border-radius: 20px;
+             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);">
+
+                          {{-- Category Filter --}}
+                          <div style="flex: 1; min-width: 240px;">
+                              <label for="category" class="form-label text-light mb-2">
+                                  <i class="bi bi-tags-fill me-2 text-info"></i>Category
+                              </label>
+                              <div class="position-relative">
+                                  <i class="bi bi-list-ul position-absolute text-light" style="top: 50%; left: 12px; transform: translateY(-50%); z-index: 2;"></i>
+                                  <select id="category" name="category" class="form-select tom-select">
+                                      <option value="">All Categories</option>
+                                      @foreach($categories as $category)
+                                          <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                                              {{ $category->name }}
+                                          </option>
+                                      @endforeach
+                                  </select>
+
+                              </div>
+                          </div>
+
+                          {{-- Country Filter --}}
+                          <div style="flex: 1; min-width: 240px;">
+                              <label for="country" class="form-label text-light mb-2">
+                                  <i class="bi bi-globe2 me-2 text-warning"></i>Country
+                              </label>
+                              <select name="country" id="country" class="form-select tom-select">
+                                  <option value="">All Countries</option>
+                                  @foreach($countries as $country)
+                                      <option value="{{ $country }}" {{ request('country') == $country ? 'selected' : '' }}>
+                                          {{ $country }}
+                                      </option>
+                                  @endforeach
+                              </select>
+                          </div>
+
+                          {{-- Buttons --}}
+                          <div class="d-flex gap-3" style="min-width: 160px;">
+                              <button type="submit" class="btn btn-outline-light w-100"
+                                      style="height: 40px; border-radius: 12px;">
+                                  <i class="bi bi-funnel-fill me-1"></i> Filter
+                              </button>
+
+                              @if(request('category') || request('country'))
+                                  <a href="{{ route('job_list') }}" class="btn btn-outline-danger w-100"
+                                     style="height: 40px; border-radius: 12px;">
+                                      <i class="bi bi-x-circle me-1"></i> Reset
+                                  </a>
+                              @endif
+                          </div>
+                      </form>
+
+
+
+                      </p>
                     <div class="table-responsive">
                       <table class="table table-dark">
                         <thead>
@@ -90,6 +149,8 @@
     @include('admin.script')
   </body>
 
+  <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.default.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
   <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
@@ -198,6 +259,45 @@
       .mb-3 {
           margin-bottom: 1.5rem;
       }
-  </style>
 
+      select.form-select {
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+
+          background-color: rgba(22, 27, 34, 0.75);
+          color: #e6edf3;
+          padding: 10px 16px 10px 40px;
+          font-size: 0.95rem;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+          position: relative;
+      }
+
+      select.form-select:focus {
+          outline: none;
+          border-color: #58a6ff;
+          box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.25);
+      }
+
+      select.form-select::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          right: 16px;
+          width: 10px;
+          height: 10px;
+          pointer-events: none;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon fill='%23e6edf3' points='70,100 30,50 110,50'/%3E%3C/svg%3E");
+          background-size: contain;
+          background-repeat: no-repeat;
+          transform: translateY(-50%);
+      }
+
+      select.form-select option {
+          background-color: #1e1e2f;
+          color: #e6edf3;
+      }
+  </style>
 </html>

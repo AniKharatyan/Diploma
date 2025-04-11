@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Application;
+use App\Models\Category;
 use App\Models\Job;
-use App\Models\JobApplication;
 use App\Models\CVuser;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +49,10 @@ class JobApplicationController extends Controller
 
     public function applications(){
         $applications=Application::all();
-        return view('applications.applications',compact('applications'));
+        $categories = Category::all();
+        $companies = Job::distinct()->pluck('company_name');
+
+        return view('applications.applications',compact('applications', 'categories', 'companies'));
     }
 
     public function approved($id)
@@ -80,5 +83,29 @@ class JobApplicationController extends Controller
         }
 
         return Storage::download($cvUser->cv_path);
+    }
+
+    public function index(Request $request)
+    {
+        $query = Application::with(['User']);
+
+        if ($request->filled('category')) {
+            $query->whereHas('job', function ($q) use ($request) {
+                $q->where('category_id', $request->category);
+            });
+        }
+
+        if ($request->filled('company')) {
+            $query->whereHas('job', function ($q) use ($request) {
+                $q->where('company_name', $request->company);
+            });
+        }
+
+        $applications = $query->get();
+
+        $categories = Category::all();
+        $companies = Job::distinct()->pluck('company_name');
+
+        return view('applications.applications', compact('applications', 'categories', 'companies'));
     }
 }

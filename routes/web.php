@@ -41,6 +41,7 @@ Route::get('/remove_from_favorites/{id}', [JobController::class, 'removeFromFavo
 Route::post('/save-job/{id}', [JobController::class, 'saveJob'])->name('save_job');
 Route::get('/job_search', [JobController::class, 'job_search'])->name('job_search');
 Route::get('/get-countries', [JobController::class, 'getCountries'])->name('get_countries');
+Route::get('/job_list', [JobController::class, 'job_list'])->name('job_list');
 
 Route::get('/contacts', [ContactController::class, 'contacts'])->name('contacts');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contact.store');
@@ -56,7 +57,7 @@ Route::post('/apply/{job}', [JobApplicationController::class, 'apply'])->name('a
 Route::get('/approved/{id}', [JobApplicationController::class, 'approved']);
 Route::get('/canceled/{id}', [JobApplicationController::class, 'canceled']);
 Route::get('view_cv/{userId}', [JobApplicationController::class, 'viewCV'])->name('view_cv');
-
+Route::get('/index', [JobApplicationController::class, 'index'])->name('applications.index');
 
 Route::get('/category', [CategoryController::class, 'category'])->name('category');
 Route::get('/create_category', [CategoryController::class, 'create_category'])->name('create_category');

@@ -16,7 +16,10 @@ class JobController extends Controller
     public function job_view()
     {
         $jobs = Job::all();
-        return view('job.job_view', compact('jobs'));
+        $categories = Category::all();
+        $countries = Job::distinct()->pluck('job_region');
+
+        return view('job.job_view', compact('jobs', 'categories', 'countries'));
     }
 
     public function create_job()
@@ -166,4 +169,24 @@ class JobController extends Controller
 
         return view('user.home', compact('jobs', 'totalusers', 'totaljobs', 'acceptedApplications', 'companies'));
     }
+
+    public function job_list(Request $request)
+    {
+        $query = Job::with('category');
+
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        if ($request->filled('country')) {
+            $query->where('job_region', $request->country);
+        }
+
+        $jobs = $query->get();
+        $categories = Category::all();
+        $countries = Job::distinct()->pluck('job_region');
+
+        return view('job.job_view', compact('jobs', 'categories', 'countries'));
+    }
+
 }
