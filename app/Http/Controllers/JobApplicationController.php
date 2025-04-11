@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Jobs\SendApplicationStatusMailJob;
 use App\Models\Application;
 use App\Models\Category;
 use App\Models\Job;
@@ -61,15 +62,18 @@ class JobApplicationController extends Controller
         $application->status = 'approved';
         $application->save();
 
+        SendApplicationStatusMailJob::dispatch($application);
+
         return redirect()->back();
     }
-
 
     public function canceled($id)
     {
         $application = Application::find($id);
         $application->status = 'refused';
         $application->save();
+
+        SendApplicationStatusMailJob::dispatch($application);
 
         return redirect()->back();
     }
